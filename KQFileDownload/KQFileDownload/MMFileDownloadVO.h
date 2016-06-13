@@ -1,6 +1,6 @@
 //
 //  MMFileDownloadVO.h
-//  StaticFrameworkTest
+//  MMFileDownload
 //
 //  Created by keqi on 16/5/26.
 //  Copyright © 2016年 keqi. All rights reserved.

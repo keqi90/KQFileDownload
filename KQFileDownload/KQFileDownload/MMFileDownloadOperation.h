@@ -1,9 +1,9 @@
 //
 //  MMFileDownloadOperation.h
-//  sessionDemo
+//  MMFileDownload
 //
 //  Created by keqi on 16/6/6.
-//  Copyright © 2016年 iwevon. All rights reserved.
+//  Copyright © 2016年 keqi. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

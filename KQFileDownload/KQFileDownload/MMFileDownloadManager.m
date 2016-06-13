@@ -1,6 +1,6 @@
 //
 //  MMFileDownloadManager.m
-//  MMUtils
+//  MMFileDownload
 //
 //  Created by keqi on 16/5/25.
 //  Copyright © 2016年 keqi. All rights reserved.

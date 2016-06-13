@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class MMFileDownloadVO;
 @interface KQDownloadTableViewCell : UITableViewCell
 
+@property (nonatomic, strong) MMFileDownloadVO *model;
 @end
