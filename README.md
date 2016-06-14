@@ -2,4 +2,6 @@
 # KQFileDownload
 
 #### 效果图如下：
-![image](file:///Users/keqi/Desktop/fileDownload.gif)
+
+![image](https://github.com/keqi90/KQFileDownload/blob/master/fileDownload.gif )   
+
