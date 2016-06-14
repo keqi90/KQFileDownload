@@ -196,7 +196,7 @@ didCompleteWithError:(NSError *)error {
     self.outputStream = nil;
     // 关闭会话
     [self.session invalidateAndCancel];
-    NSLog(@"下载完成：%@",[NSThread currentThread]);
+    NSLog(@"下载完成：%@",error);
 }
 
 //应用程序退出 保存状态
