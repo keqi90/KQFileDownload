@@ -83,7 +83,7 @@
         _model = model;
     }
     
-    [self.photoImageView setImage:[UIImage imageNamed:@"bg.jpg"]];
+    [self.photoImageView setImage:[UIImage imageNamed:@"header.jpg"]];
     self.progressTextLabel.text = [NSString stringWithFormat:@"%.2f%%", model.progress * 100];
     [self.progressView setProgress:model.progress];
     self.statusLabel.text = model.statusText;
