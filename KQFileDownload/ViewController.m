@@ -36,6 +36,7 @@ static NSString *kCellIdentifier = @"MMDownloadTableViewCell";
         NSString *url = urls[i];
         model.fileName = [NSString stringWithFormat:@"%d-%@",i,url.lastPathComponent];
         model.urlStr = url;
+        //可省略(有默认路径)
         model.localPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"Download"] stringByAppendingPathComponent:[NSString stringWithFormat:@"haha%@",model.fileName]];
         
         [[MMFileDownloadManager sharedInstance] addTaskWithFileDownloadEntity:model];
@@ -104,7 +105,6 @@ static NSString *kCellIdentifier = @"MMDownloadTableViewCell";
             break;
         }
     }
-    
 }
 
 
