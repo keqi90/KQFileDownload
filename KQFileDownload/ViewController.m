@@ -46,7 +46,7 @@ static NSString *kCellIdentifier = @"MMDownloadTableViewCell";
     [self.view addSubview:self.tableView];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.tableView registerClass:[KQDownloadTableViewCell class] forCellReuseIdentifier:kCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"KQDownloadTableViewCell" bundle:nil] forCellReuseIdentifier:kCellIdentifier];
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource

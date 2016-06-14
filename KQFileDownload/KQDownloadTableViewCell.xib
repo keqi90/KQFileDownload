@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="KPF-we-Aig" customClass="KQDownloadTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5z-PX-OS3">
+                    <rect key="frame" x="15" y="14" width="290" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.0" green="0.20000000000000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2wv-ag-SJg">
+                    <rect key="frame" x="15" y="56" width="290" height="4"/>
+                    <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="4" id="pfm-zq-ajx"/>
+                    </constraints>
+                </progressView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rgx-vI-vcj">
+                    <rect key="frame" x="15" y="80" width="56" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="IhY-kV-8RQ"/>
+                        <constraint firstAttribute="width" constant="56" id="NL7-Jh-TSu"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khq-eb-eTa">
+                    <rect key="frame" x="237" y="80" width="68" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="68" id="38N-bQ-D0S"/>
+                        <constraint firstAttribute="height" constant="21" id="iQa-r8-uOc"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Rw-pM-smh">
+                    <rect key="frame" x="15" y="119" width="305" height="1"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Lr6-hN-cCa"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="d5z-PX-OS3" firstAttribute="top" secondItem="KPF-we-Aig" secondAttribute="top" constant="14" id="5Qy-LS-oWL"/>
+                <constraint firstAttribute="trailing" secondItem="5Rw-pM-smh" secondAttribute="trailing" id="5dr-dk-kMi"/>
+                <constraint firstAttribute="bottom" secondItem="5Rw-pM-smh" secondAttribute="bottom" id="BDv-vV-ile"/>
+                <constraint firstItem="2wv-ag-SJg" firstAttribute="leading" secondItem="KPF-we-Aig" secondAttribute="leading" constant="15" id="IC5-VT-gE9"/>
+                <constraint firstItem="5Rw-pM-smh" firstAttribute="leading" secondItem="KPF-we-Aig" secondAttribute="leading" constant="15" id="MYi-Jo-90d"/>
+                <constraint firstItem="Khq-eb-eTa" firstAttribute="top" secondItem="2wv-ag-SJg" secondAttribute="bottom" constant="20" id="NFy-hn-lKZ"/>
+                <constraint firstItem="2wv-ag-SJg" firstAttribute="top" secondItem="d5z-PX-OS3" secondAttribute="bottom" constant="21" id="Pwq-y8-i7P"/>
+                <constraint firstAttribute="trailing" secondItem="Khq-eb-eTa" secondAttribute="trailing" constant="15" id="S1F-pt-BEZ"/>
+                <constraint firstItem="Rgx-vI-vcj" firstAttribute="leading" secondItem="KPF-we-Aig" secondAttribute="leading" constant="15" id="ZIq-cW-oRn"/>
+                <constraint firstAttribute="trailing" secondItem="2wv-ag-SJg" secondAttribute="trailing" constant="15" id="fFj-Oa-n3c"/>
+                <constraint firstAttribute="bottom" secondItem="Khq-eb-eTa" secondAttribute="bottom" constant="19" id="fT1-yP-Vzs"/>
+                <constraint firstAttribute="bottom" secondItem="Rgx-vI-vcj" secondAttribute="bottom" constant="19" id="gTb-Ux-hTc"/>
+                <constraint firstItem="d5z-PX-OS3" firstAttribute="leading" secondItem="KPF-we-Aig" secondAttribute="leading" constant="15" id="r7c-os-KOe"/>
+                <constraint firstAttribute="trailing" secondItem="d5z-PX-OS3" secondAttribute="trailing" constant="15" id="wrS-Cd-faM"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="progressLabel" destination="Rgx-vI-vcj" id="GzC-JA-h6H"/>
+                <outlet property="progressView" destination="2wv-ag-SJg" id="Emv-f0-7sq"/>
+                <outlet property="statusLabel" destination="Khq-eb-eTa" id="dzU-Oz-S5P"/>
+                <outlet property="titleLabel" destination="d5z-PX-OS3" id="m5Q-ym-ya4"/>
+            </connections>
+            <point key="canvasLocation" x="519" y="261"/>
+        </view>
+    </objects>
+</document>
