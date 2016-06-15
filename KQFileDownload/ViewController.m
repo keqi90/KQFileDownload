@@ -26,7 +26,6 @@ static NSString *kCellIdentifier = @"MMDownloadTableViewCell";
     
     NSArray *urls = @[@"http://farm6.staticflickr.com/5505/9824098016_0e28a047c2_b_d.jpg",
                       @"http://farm3.staticflickr.com/2846/9823925914_78cd653ac9_b_d.jpg",
-                      @"http://farm3.staticflickr.com/2831/9823890176_82b4165653_b_d.jpg",
                       @"http://dl_dir.qq.com/qqfile/qq/QQforMac/QQ_V2.4.1.dmg",
                       @"http://download.xitongxz.com/Ylmf_Ghost_Win7_SP1_x64_2016_0512.iso"
                       ];
@@ -42,7 +41,7 @@ static NSString *kCellIdentifier = @"MMDownloadTableViewCell";
         [[MMFileDownloadManager sharedInstance] addTaskWithFileDownloadEntity:model];
     }
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height - 20)];
     [self.view addSubview:self.tableView];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
