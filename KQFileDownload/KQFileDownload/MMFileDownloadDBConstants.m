@@ -67,6 +67,12 @@ NSString *const status = @"status";
             fileID];
 }
 
++ (NSString *)getQuerySQLV3 {
+    return [NSString stringWithFormat:
+            @"select * from %@",
+            TABLE_FILEINFO];
+}
+
 
 + (NSString *)getInsertSQL {
     return [NSString stringWithFormat:

@@ -9,7 +9,6 @@
 #import "MMFileDownloadOperation.h"
 #import "MMFileDownloadVO.h"
 #import "MMFileDownloadDao.h"
-#import <UIKit/UIKit.h>
 
 @interface MMFileDownloadOperation ()<NSURLSessionDataDelegate> {
     BOOL _executing;
@@ -36,23 +35,10 @@
         self.model = model;  //很关键
         //创建下载任务
         [self creatDownloadSessionTaskWithURLString:model.urlStr];
-        
-        //添加应用程序退出的通知
-        [self addNotification];
     }
     return self;
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)addNotification {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appWillTerminateNotification)
-                                                 name:UIApplicationWillTerminateNotification
-                                               object:nil];
-}
 
 #pragma mark - Create Session And Task
 - (void)creatDownloadSessionTaskWithURLString:(NSString *)urlString {
@@ -174,39 +160,27 @@ didReceiveResponse:(NSURLResponse *)response
               task:(NSURLSessionTask *)task
 didCompleteWithError:(NSError *)error {
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (error == nil) {
-            self.model.status = kMMDownloadStatusCompleted;
-            [self completeOperation];
-        }
-        else if (self.model.status == kMMDownloadStatusSuspended) {
-            self.model.status = kMMDownloadStatusSuspended;
-        }
-        else if ([error code] < 0) {
-            // 网络异常
-            self.model.status = kMMDownloadStatusFailed;
-        }
-        
-        //更新下载状态
-        [self.dao updateWithID:self.model];
-    });
+    if (error == nil) {
+        self.model.status = kMMDownloadStatusCompleted;
+        [self completeOperation];
+    }
+    else if (self.model.status == kMMDownloadStatusSuspended) {
+        self.model.status = kMMDownloadStatusSuspended;
+    }
+    else if ([error code] < 0) {
+        // 网络异常
+        self.model.status = kMMDownloadStatusFailed;
+        NSLog(@"下载完成：%@",error);
+    }
+    
+    //更新下载状态
+    [self.dao updateWithID:self.model];
     
     // 关闭输出流 并关闭强指针
     [self.outputStream close];
     self.outputStream = nil;
     // 关闭会话
     [self.session invalidateAndCancel];
-    NSLog(@"下载完成：%@",error);
-}
-
-//应用程序退出 保存状态
-- (void)appWillTerminateNotification {
-    
-    if (self.model.status == kMMDownloadStatusRunning) {
-        self.model.status = kMMDownloadStatusSuspended;
-    }
-    NSLog(@"applicationWillTerminate");
-    [self.dao updateWithID:self.model];
 }
 
 #pragma mark - Overwrite Methods

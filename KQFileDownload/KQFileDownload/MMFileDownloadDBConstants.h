@@ -25,4 +25,6 @@
 + (NSString *)getQuerySQL;
 
 + (NSString *)getQuerySQLV2;
+
++ (NSString *)getQuerySQLV3;
 @end

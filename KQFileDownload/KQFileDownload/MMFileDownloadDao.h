@@ -25,6 +25,11 @@
 - (id)queryWithURL:(NSString *)urlStr;
 
 /**
+ *  查询所有
+ */
+- (id)queryAll;
+
+/**
  * 新增
  */
 - (BOOL)insertWithEntity:(NSObject *)entity;

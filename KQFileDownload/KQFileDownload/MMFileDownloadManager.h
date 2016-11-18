@@ -17,11 +17,11 @@
 + (id)sharedInstance;
 
 /**
- *  初始化文件下载管理器
+ *  设置最大线程数
  *
  *  @param threadNum   最大线程数(可同时下载的最大文件数)，取值[1-5]，超出取默认值3
  */
-- (void)initWithMaxThreadNum:(int)threadNum;
+- (void)setMaxThreadNum:(int)threadNum;
 
 /**
  *  添加一个下载任务，不启动

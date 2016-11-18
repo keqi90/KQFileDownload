@@ -10,7 +10,7 @@
 #import "MMFileDownloadVO.h"
 #import "MMFileDownloadDao.h"
 #import "MMFileDownloadOperation.h"
-
+#import <UIKit/UIKit.h>
 
 #define DEFAULT_SAVE_DIRECTORY [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/MMFileDownload"]
 
@@ -55,11 +55,31 @@ static MMFileDownloadManager *_instance = nil;
 - (id)init {
     if (self = [super init]) {
         _fileDownloadModels = [[NSMutableArray alloc] init];
+        
+        //添加应用程序退出的通知
+        [self addNotification];
+        
+        //查询已经存储的下载对象
+        NSArray *voList = [self.dao queryAll];
+        if (voList.count) {
+            [_fileDownloadModels addObjectsFromArray:voList];
+        }
     }
     return self;
 }
 
-- (void)initWithMaxThreadNum:(int)threadNum {
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)addNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appWillTerminateNotification)
+                                                 name:UIApplicationWillTerminateNotification
+                                               object:nil];
+}
+
+- (void)setMaxThreadNum:(int)threadNum {
     if ( threadNum < 1 || threadNum > 5) {
         threadNum = 3;
     }
@@ -101,14 +121,8 @@ static MMFileDownloadManager *_instance = nil;
     if (model) {
         
         MMFileDownloadVO *dbVO = [self.dao queryWithURL:model.urlStr];
-        if (dbVO) {// 如果数据库里已经有记录,赋值之前的状态给数据源(很重要)
-            model.ID = dbVO.ID;
-            model.progress = (dbVO.totalSize)?1.0*dbVO.downloadedSize / dbVO.totalSize :0;
-            model.status = dbVO.status;
-            model.downloadedSize = dbVO.downloadedSize;
-            model.totalSize = dbVO.totalSize;
-            model.localPath = dbVO.localPath;
-        } else {
+        if (dbVO == nil) {// 如果数据库里没有记录，存入数据库
+            
             //拼接文件路径
             if (!model.localPath) {
                 //创建默认存储路径
@@ -123,9 +137,8 @@ static MMFileDownloadManager *_instance = nil;
             [self.dao insertWithEntity:model];
             dbVO = [self.dao queryWithURL:model.urlStr];
             model.ID = dbVO.ID;   //赋值ID
+            [_fileDownloadModels addObject:model];
         }
-        
-        [_fileDownloadModels addObject:model];
     }
 }
 
@@ -185,6 +198,18 @@ static MMFileDownloadManager *_instance = nil;
     MMFileDownloadVO *vo = [self.dao queryWithURL:urlStr];
 
     return vo;
+}
+
+//应用程序退出 保存状态
+- (void)appWillTerminateNotification {
+    NSLog(@"applicationWillTerminate");
+
+    for (MMFileDownloadVO *vo in _fileDownloadModels) {
+        if (vo.status == kMMDownloadStatusRunning) {
+            vo.status = kMMDownloadStatusSuspended;
+            [self.dao updateWithID:vo];
+        }
+    }
 }
 
 #pragma mark - Lazy Loading

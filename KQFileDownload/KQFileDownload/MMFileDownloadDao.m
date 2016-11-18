@@ -89,14 +89,7 @@
         FMResultSet *rs = [db executeQuery:[MMFileDownloadDBConstants getQuerySQLV2], @(ID)];
         
         if ([rs next]) {
-            vo = [[MMFileDownloadVO alloc]  init];
-            vo.ID = [rs intForColumn:@"ID"];
-            vo.fileName = [rs stringForColumn:@"fileName"];
-            vo.urlStr = [rs stringForColumn:@"urlStr"];
-            vo.downloadedSize = [rs longLongIntForColumn:@"downloadedSize"];
-            vo.totalSize = [rs longLongIntForColumn:@"totalSize"];
-            vo.localPath = [rs stringForColumn:@"localPath"];
-            vo.status = [rs intForColumn:@"status"];
+            vo = [self getModelFromFMResultSet:rs];
         }
         [rs close];
     }];
@@ -113,17 +106,40 @@
         FMResultSet *rs = [db executeQuery:[MMFileDownloadDBConstants getQuerySQL], urlStr];
         
         if ([rs next]) {
-            vo = [[MMFileDownloadVO alloc]  init];
-            vo.ID = [rs intForColumn:@"ID"];
-            vo.fileName = [rs stringForColumn:@"fileName"];
-            vo.urlStr = [rs stringForColumn:@"urlStr"];
-            vo.downloadedSize = [rs longLongIntForColumn:@"downloadedSize"];
-            vo.totalSize = [rs longLongIntForColumn:@"totalSize"];
-            vo.localPath = [rs stringForColumn:@"localPath"];
-            vo.status = [rs intForColumn:@"status"];
+            vo = [self getModelFromFMResultSet:rs];
         }
         [rs close];
     }];
+    return vo;
+}
+
+- (id)queryAll {
+    
+    NSMutableArray *voList = [NSMutableArray array];
+    
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        
+        FMResultSet *rs = [db executeQuery:[MMFileDownloadDBConstants getQuerySQLV3]];
+        
+        while ([rs next]) {
+            MMFileDownloadVO *vo = [self getModelFromFMResultSet:rs];
+            vo.progress = (vo.totalSize > 0) ? (vo.downloadedSize * 1.0 / vo.totalSize) : 0.0;
+            [voList addObject:vo];
+        }
+        [rs close];
+    }];
+    return voList;
+}
+
+- (MMFileDownloadVO *)getModelFromFMResultSet:(FMResultSet *)rs {
+    MMFileDownloadVO *vo = [[MMFileDownloadVO alloc] init];
+    vo.ID = [rs intForColumn:@"ID"];
+    vo.fileName = [rs stringForColumn:@"fileName"];
+    vo.urlStr = [rs stringForColumn:@"urlStr"];
+    vo.downloadedSize = [rs longLongIntForColumn:@"downloadedSize"];
+    vo.totalSize = [rs longLongIntForColumn:@"totalSize"];
+    vo.localPath = [rs stringForColumn:@"localPath"];
+    vo.status = [rs intForColumn:@"status"];
     return vo;
 }
 
