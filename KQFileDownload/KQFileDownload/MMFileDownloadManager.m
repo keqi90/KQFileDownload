@@ -124,7 +124,7 @@ static MMFileDownloadManager *_instance = nil;
         if (dbVO == nil) {// 如果数据库里没有记录，存入数据库
             
             //拼接文件路径
-            if (!model.localPath) {
+            if (model.localPath.length == 0) {
                 //创建默认存储路径
                 [self createSaveDirectory:DEFAULT_SAVE_DIRECTORY];
                 model.localPath = [DEFAULT_SAVE_DIRECTORY stringByAppendingPathComponent:model.fileName];

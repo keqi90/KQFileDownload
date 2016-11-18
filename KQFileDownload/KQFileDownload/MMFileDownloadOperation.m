@@ -160,18 +160,21 @@ didReceiveResponse:(NSURLResponse *)response
               task:(NSURLSessionTask *)task
 didCompleteWithError:(NSError *)error {
     
-    if (error == nil) {
-        self.model.status = kMMDownloadStatusCompleted;
-        [self completeOperation];
-    }
-    else if (self.model.status == kMMDownloadStatusSuspended) {
-        self.model.status = kMMDownloadStatusSuspended;
-    }
-    else if ([error code] < 0) {
-        // 网络异常
-        self.model.status = kMMDownloadStatusFailed;
-        NSLog(@"下载完成：%@",error);
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        if (error == nil) {
+            self.model.status = kMMDownloadStatusCompleted;
+            [self completeOperation];
+        }
+        else if (self.model.status == kMMDownloadStatusSuspended) {
+            self.model.status = kMMDownloadStatusSuspended;
+        }
+        else if ([error code] < 0) {
+            // 网络异常
+            self.model.status = kMMDownloadStatusFailed;
+            NSLog(@"下载完成：%@",error);
+        }
+    });
     
     //更新下载状态
     [self.dao updateWithID:self.model];
